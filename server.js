@@ -38,12 +38,12 @@ app.param('collectionName', (req, res, next, collectionName) => {
     return next()
 })
 
-app.get('/collections/:collectionName/:_id', function(req, res, next) {
+app.get('/collections/:collectionName', function(req, res, next) {
     req.collection.find({}).toArray(function (err, results) {
         if (err) {
             return next(err)
         }
-        res.send({ msg: 'success', data: results })
+        res.send(results)
     });
 });
 
@@ -52,7 +52,7 @@ app.post('/collections/:collectionName', function(req, res, next) {
         if (err) {
             return next(err)
         }
-        res.send({ msg: 'success', data: results })
+        res.send(results)
     });
 });
 
