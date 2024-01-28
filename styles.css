@@ -1,5 +1,0 @@
-.lesson-image {
-    max-width: 200px;
-    max-height: 200px;
-    object-fit: cover; /* This line ensures that the aspect ratio of the images is maintained */
-}
