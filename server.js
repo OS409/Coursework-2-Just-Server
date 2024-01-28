@@ -82,6 +82,7 @@ app.use(function(req, res) {
     res.send("File not found!");
 });
 
-app.listen(3030, function() {
-    console.log("App started on port 3030");
+const port = process.env.PORT || 3030;
+app.listen(port, function() {
+    console.log("App started on port " + port);
 });
