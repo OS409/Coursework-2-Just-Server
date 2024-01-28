@@ -43,7 +43,7 @@ app.get('/collections/:collectionName/:_id', function(req, res, next) {
         if (err) {
             return next(err)
         }
-        res.send(results)
+        res.send({ msg: 'success', data: results })
     });
 });
 
@@ -52,7 +52,7 @@ app.post('/collections/:collectionName', function(req, res, next) {
         if (err) {
             return next(err)
         }
-        res.send(results)
+        res.send({ msg: 'success', data: results })
     });
 });
 
