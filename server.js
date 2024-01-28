@@ -38,7 +38,7 @@ app.param('collectionName', (req, res, next, collectionName) => {
     return next()
 })
 
-app.get('/collections/:collectionName', function(req, res, next) {
+app.get('/collections/:collectionName/:_id', function(req, res, next) {
     req.collection.find({}).toArray(function (err, results) {
         if (err) {
             return next(err)
@@ -56,21 +56,20 @@ app.post('/collections/:collectionName', function(req, res, next) {
     });
 });
 
-app.put('/collections/:collectionName/:id', function(req, res, next) {
-    const id = req.params.id;
-    const update = req.body;
+app.put('/collections/:collectionName/:orderId', async function(req, res, next) {
+    const orderId = req.params.orderId;
 
-    req.collection.updateOne(
-        { _id: ObjectId(id) },
-        { $set: update },
-        { upsert: true },
-        function(err, result) {
-            if (err) {
-                return next(err);
-            }
-            res.send(result);
-        }
-    );
+    try {
+        await req.collection.updateOne(
+            { id: orderId },
+            { $inc: { spaces: -1 } },
+            { safe: true }
+        );
+
+        res.send({ msg: 'success' });
+    } catch (err) {
+        next(err);
+    }
 });
 
 var publicPath = path.resolve(__dirname, "public");
