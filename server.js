@@ -61,7 +61,7 @@ app.put('/collections/:collectionName/:orderId', async function(req, res, next) 
 
     try {
         await req.collection.updateOne(
-            { id: orderId },
+            { _id: orderId },
             { $inc: { spaces: -1 } },
             { safe: true }
         );
