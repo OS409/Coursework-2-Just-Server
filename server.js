@@ -56,17 +56,15 @@ app.post('/collections/:collectionName', function(req, res, next) {
     });
 });
 
-app.put('/collections/:collectionName', async function(req, res, next) {
-    const ids = req.body;
+app.put('/collections/:collectionName/:orderId', async function(req, res, next) {
+    const orderId = req.params.orderId;
 
     try {
-        for (const id of ids) {
-            await req.collection.updateOne(
-                { id: id },
-                { $inc: { spaces: -1 } },
-                { safe: true }
-            );
-        }
+        await req.collection.updateOne(
+            { id: orderId },
+            { $inc: { spaces: -1 } },
+            { safe: true }
+        );
 
         res.send({ msg: 'success' });
     } catch (err) {
